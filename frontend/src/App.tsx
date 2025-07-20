@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-
+import Body from "./components/body/Body";
 
 function App() {
 
@@ -27,8 +27,10 @@ function App() {
   return (
     <>
 
-      <div className="bg-green-200">Hello Manas form frontend</div>
-      <div className="bg-blue-500">{message}</div>
+      {/* <div className="bg-green-200">Hello Manas form frontend</div>
+      <div className="bg-blue-500">{message}</div> */}
+
+      <Body/>
     </>
   )
 }
