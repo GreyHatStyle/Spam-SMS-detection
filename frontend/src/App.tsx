@@ -11,6 +11,7 @@ function App() {
       const response = await axios.get("http://127.0.0.1:8000/health")
       const m =  response.data["message"];
       setMessage(m);
+      console.log(message);
     }
     catch(error){
       console.log(error);
