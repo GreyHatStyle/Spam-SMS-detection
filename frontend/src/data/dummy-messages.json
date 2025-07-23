@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "userName": "Animal",
+    "messageFromUser": "Hey, are we meeting today?",
+    "unreadCount": 2
+  },
+  {
+    "id": "2",
+    "userName": "Cow",
+    "messageFromUser": "Don't forget the documents.",
+    "unreadCount": 0
+  },
+  {
+    "id": "3",
+    "userName": "Charlie",
+    "messageFromUser": "See you at the party! Today we will bring bruh op players in this world",
+    "unreadCount": 5
+  },
+  {
+    "id": "4",
+    "userName": "Diana",
+    "messageFromUser": "Can you call me back?",
+    "unreadCount": 1
+  },
+  {
+    "id": "5",
+    "userName": "Eve",
+    "messageFromUser": "Thanks for your help!",
+    "unreadCount": 0
+  }
+]

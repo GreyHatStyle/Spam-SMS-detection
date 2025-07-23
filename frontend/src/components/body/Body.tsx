@@ -95,6 +95,9 @@ function Body() {
         <div id="phone-grp" className="w-screen flex flex-row justify-around md:max-w-2xl xl:max-w-4xl gap-x-3">
 
             <PhoneScreen
+            userName="Alice"
+            messageFromUser="Bob"
+            isSelectedScreen={selectedPhoneIndex==0}
             onClick={()=>openMobileDevice(0)}
             className={
                 selectedPhoneIndex==0 ? 
@@ -104,6 +107,9 @@ function Body() {
             />
 
             <PhoneScreen
+            userName="Bob"
+            messageFromUser="Alice"
+            isSelectedScreen={selectedPhoneIndex==1}
             onClick={()=>openMobileDevice(1)}
             className={
                 selectedPhoneIndex==1 ? 
@@ -123,19 +129,38 @@ function Body() {
         </div>
 
         {isMobileDevice && selectedPhoneIndex!=null &&
-
-        <div
+        // Will only work if width of screen is smaller than 'md' (either phone or tab)
+        <div id="device-overlay-in-mobiles"
         className="
             fixed top-0 left-0
             w-screen h-screen
-            bg-white
+            bg-[#F6F9FE]
             z-50
             overflow-auto
             "
         >
+            {
+                (selectedPhoneIndex == 0)?
 
-            <PhoneDisplay 
-            />
+                (
+                    <PhoneDisplay
+                        userName="Alice"
+                        messageFromUser="Bob"
+                        isSelected={selectedPhoneIndex==0} 
+                        isMobileDevice={isMobileDevice}
+                    />
+
+                )
+                :
+                (   
+                    <PhoneDisplay
+                        userName="Bob"
+                        messageFromUser="Alice"
+                        isSelected={selectedPhoneIndex==1} 
+                        isMobileDevice={isMobileDevice}
+                    />
+                )
+            }
 
         </div>
         }
