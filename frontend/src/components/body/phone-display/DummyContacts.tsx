@@ -1,4 +1,4 @@
-import { type HTMLAttributes, useState } from "react"
+import { type HTMLAttributes} from "react"
 import dummyMessages from "../../../data/dummy-messages.json"
 
 interface DummyContactProps extends HTMLAttributes<HTMLDivElement>{

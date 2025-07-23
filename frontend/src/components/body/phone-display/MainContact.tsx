@@ -16,7 +16,7 @@ function MainContact(
     ...props
     }: MainContactProps) {
 
-    const [numberOfMessages, setNumberOfMessasges] = useState<number>(10);
+    const [numberOfMessages, _] = useState<number>(10);
     
     return (
         <>
