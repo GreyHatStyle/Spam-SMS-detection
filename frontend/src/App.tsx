@@ -1,37 +1,38 @@
-import axios from "axios";
-import { useEffect, useState } from "react"
+// import axios from "axios";
+import { useState } from "react"
 import Body from "./components/body/Body";
+import { SelectPhoneContext } from "./hooks/useSelectPhoneDevice";
+// const API_URL=import.meta.VITE_BACKEND_API_URL
 
 function App() {
 
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
-  async function healthCheck(){
-    try{
-      const response = await axios.get("http://127.0.0.1:8000/health")
-      const m =  response.data["message"];
-      setMessage(m);
-      console.log(message);
-    }
-    catch(error){
-      console.log(error);
-    }
-    finally{
-      console.log("Api request done!!");
-    }
-  }
+  // async function healthCheck(){
+  //   try{
+  //     const response = await axios.get(`${API_URL}/health`)
+  //     const m =  response.data["message"];
+  //     setMessage(m);
+  //     console.log(message);
+  //   }
+  //   catch(error){
+  //     console.log(error);
+  //   }
+  //   finally{
+  //     console.log("Api request done!!");
+  //   }
+  // }
 
-  useEffect( ()=>{
-    healthCheck();
-  }, []);
+  // useEffect( ()=>{
+  //   healthCheck();
+  // }, []);
+  const [selectedPhoneIndex, setSelectedPhoneIndex] = useState<null | number>(null);
 
   return (
     <>
-
-      {/* <div className="bg-green-200">Hello Manas form frontend</div>
-      <div className="bg-blue-500">{message}</div> */}
-
-      <Body/>
+      <SelectPhoneContext.Provider value={{selectedPhoneIndex, setSelectedPhoneIndex}}>
+        <Body/>
+      </SelectPhoneContext.Provider>
     </>
   )
 }

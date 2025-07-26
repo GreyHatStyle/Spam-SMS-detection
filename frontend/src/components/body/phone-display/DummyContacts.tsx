@@ -19,12 +19,13 @@ function DummyContact(
 ){
 
     return (
-        <div {...props}>
+        <div {...props}
+        >
         
         {
             dummyMessages.map((contact) =>(
 
-              <div id={contact.id}
+              <div key={contact.id}
               className={`
               
               rounded-2xl
@@ -32,6 +33,7 @@ function DummyContact(
               justify-start items-center
               bg-white
               shadow-sm
+              
               ${isSelected && isMobileDevice?
                 // mobile device is on hand
                 `gap-4 p-2 my-2`

@@ -23,9 +23,16 @@ function MenuButton(
         <button
         onClick={()=>openMenu(true)}
         className={`
-        absolute top-[-20px]
+        absolute
         hover:cursor-pointer 
         xl:pt-1
+        ${isSelected ?
+            `top-4
+            md:top-1
+            `
+            :
+            `top-1`
+        }
         `}
         >
 
@@ -58,11 +65,11 @@ function MenuButton(
 
         ${isSelected? 
             isMobileDevice ?
-                `h-screen w-[200px] top-[-43px]`
+                `h-screen w-[200px] top-[-6px]`
                 :
-                `h-[265px] w-[70px] xl:w-[100px] mt-[20px]${''/* top css was not working apparently, so used mt to align it little downwards*/}
-                md:ml-[2px] md:rounded-bl-lg top-[-22.5px]
-                xl:rounded-bl-2xl xl:top-[-17px] xl:h-[355px] xl:left-[-2px]
+                `h-[268px] w-[70px] xl:w-[100px] mt-[20px]${''/* top css was not working apparently, so used mt to align it little downwards*/}
+                md:ml-[2px] md:rounded-bl-xl top-[-5.6px] md:left-[-6px]
+                xl:rounded-bl-2xl xl:top-[0px] xl:h-[359px] xl:left-[-3px]
                 `
             :
             `hidden`

@@ -1,4 +1,5 @@
 import { type HTMLAttributes, useState } from "react"
+import SMSArea from "./SMSArea";
 
 interface MainContactProps extends HTMLAttributes<HTMLDivElement>{
   isSelected: boolean
@@ -17,11 +18,13 @@ function MainContact(
     }: MainContactProps) {
 
     const [numberOfMessages, _] = useState<number>(10);
-    
+    const [smsScreenSelected, setSmsScreen] = useState<boolean>(false);
+
     return (
         <>
     <div id="main-contact"
         {...props}
+        onClick={()=>setSmsScreen(true)}
         className={`
             rounded-2xl
             flex flex-row
@@ -89,7 +92,14 @@ function MainContact(
             </div>
             }
         </div>
-
+        
+        {
+            smsScreenSelected && isSelected && 
+            <SMSArea 
+            username={userName}
+            setSmsScreen={setSmsScreen}
+            />
+        }
         </>
     )
 }

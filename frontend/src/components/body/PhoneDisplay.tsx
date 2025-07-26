@@ -1,7 +1,9 @@
-import {useEffect, useState, type HTMLAttributes } from "react"
+import {type HTMLAttributes } from "react"
 import MainContact from "./phone-display/MainContact"
 import DummyContact from "./phone-display/DummyContacts"
 import MenuButton from "./phone-display/MenuButton"
+import { useIsMobile } from "../../hooks/useIsMobile"
+import { useCurrentTime } from "../../hooks/useCurrentTime"
 
 interface PhoneDisplayProps extends HTMLAttributes<HTMLDivElement>{
   isSelected: boolean
@@ -10,56 +12,36 @@ interface PhoneDisplayProps extends HTMLAttributes<HTMLDivElement>{
   isMobileDevice?: boolean
 }
 
-function getCurrentTimeString(){
-  const now = new Date();
-  return now.toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
-}
 
 function PhoneDisplay(
   { isSelected, 
     userName,
-    messageFromUser, 
-    isMobileDevice,
+    messageFromUser,
     ...props 
   }: PhoneDisplayProps) {
 
-    const [currentTime, setCurrentTime] = useState<string>(getCurrentTimeString());
+    const isMobileDevice = useIsMobile();
+    const currentTime = useCurrentTime();
+    
 
-    useEffect(() => {
-      // Calculate ms until next minute
-      const now = new Date();
-      const msToNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
-
-      const timeout = setTimeout(() => {
-        setCurrentTime(getCurrentTimeString());
-
-        const interval = setInterval(() => {
-          setCurrentTime(getCurrentTimeString());
-        }, 60000);
-
-        // Save interval id to clear later
-        (window as any)._phoneDisplayInterval = interval;
-      }, msToNextMinute);
-
-      return () => {
-        clearTimeout(timeout);
-        if ((window as any)._phoneDisplayInterval) {
-          clearInterval((window as any)._phoneDisplayInterval);
-        }
-      };
-    }, [])
-
-
+// bg-[#F6F9FE]
   return (
-    <div {...props}
-    className={` 
+    <div id="main-phone-display" 
+    {...props}
+    className={`
+    ${isSelected && isMobileDevice ?
+      `fixed top-[-3px] left-0
+        w-[100dvw] h-[100dvh]
+        z-50`
+
+        :
+        `relative ${/* Added this relative to position Slider menu button*/''}`
+    }
+      
     text-sm
     bg-[#F6F9FE]
-    relative ${/* Added this relative to position Slider menu button*/''}
+    ml-[2px] mr-[2.3px] mt-[2.8px]
+    flex flex-col
     `}
     >
       
@@ -67,16 +49,17 @@ function PhoneDisplay(
       className={`
       absolute
       text-white
-      text-[7px] top-[-33px] left-[5.5px]
-      xl:text-[9px] xl:top-[-30px] xl:left-[10px]
+      text-[7px] top-[-16px] left-[5.5px]
+      xl:text-[9px] xl:top-[-13px] xl:left-[10px]
       
-      ${isMobileDevice?
+      ${isSelected && isMobileDevice?
         `hidden`
         :
         `block`
       }
       `}
       >
+        
       {currentTime}
       </div>
 
@@ -107,12 +90,10 @@ function PhoneDisplay(
           msOverflowStyle: "none",
           scrollbarWidth: "none"
         }}
-        className={`overflow-y-auto 
-          ${isMobileDevice?
-            ``
-            :
-            `max-h-[180px] xl:max-h-[270px]`
-          }
+        className={`overflow-y-scroll md:max-h-[180px] xl:max-h-[270px]
+          
+          ${isSelected ? `` : `max-h-[180px]`}
+          
           `}
         >
           

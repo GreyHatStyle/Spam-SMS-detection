@@ -1,62 +1,16 @@
-import { useEffect, useState } from "react"
-import PhoneScreen from "./PhoneScreen"
-import PhoneDisplay from "./PhoneDisplay"
+import { useTheme } from "../../hooks/useTheme"
+import ThemeToggleButton from "./ThemeToggleButton"
+
+import PhoneGroup from "./PhoneGroup"
+import { useSelectPhoneDevice } from "../../hooks/useSelectPhoneDevice"
 
 function Body() {
     const backgroundImgLight = "./wallpaper/wall-light.png"
     const backgroundImgDark = "./wallpaper/wall-dark.png"
 
-    const [theme, setTheme] = useState<string>("Light")
-    const [isMobileDevice, setMobileDevice] = useState<boolean>(window.innerWidth < 768)
-  
-    const [selectedPhoneIndex, setSelectedPhoneIndex] = useState<null | number>(null);
+    const { theme, toggleTheme } = useTheme();
+    const { selectedPhoneIndex, setSelectedPhoneIndex } = useSelectPhoneDevice();
 
-    function toggleTheme(){
-        setTheme(theme === "Light" ? "Dark" : "Light");
-    }
-
-    useEffect( ()=>{
-        /**
-         * Will check if width is low enough to give Phone Display whole screen (instead of scale zoom effect)
-         */
-        const handleResize = () =>{
-            setMobileDevice(window.innerWidth < 768);
-        }
-
-        window.addEventListener('resize', handleResize);
-        
-        // cleanup event listener on component unmount
-        return () =>{
-            window.removeEventListener('resize', handleResize);
-        }
-    }, []);
-
-
-    useEffect( ()=> {
-        /**
-         * If Phone display is selected in small screen, then pressing "back button" should get user to home screen.
-         */
-        if(isMobileDevice && selectedPhoneIndex != null){
-            window.history.pushState({mobileSelected: true}, "");
-            const handlePopState = () =>{
-                setSelectedPhoneIndex(null);
-            }
-            // if back button is pressed on mobile phone
-            window.addEventListener("popstate", handlePopState);
-
-            // Cleanup
-            return () =>{
-                window.removeEventListener("popstate", handlePopState);
-            }
-        }
-    }, [isMobileDevice, selectedPhoneIndex]);
-
-    function openMobileDevice(index :number){
-        // if(window.innerWidth < 678){
-            // selectMobile(true)
-        // }
-        setSelectedPhoneIndex(index)
-    }
 
     console.log("Which Phone selected: ", selectedPhoneIndex);
 
@@ -78,48 +32,12 @@ function Body() {
         md:bg-cover
       "
     >
-        <button
-          className="
-            bg-white/70 py-3 px-6
-            rounded-2xl
-            hover:cursor-pointer hover:scale-110 hover:bg-white hover:shadow-md hover:shadow-black/65
-            font-bold
-            transition-all ease-in
-            mt-5
-          "
-          onClick={toggleTheme}
-        >
-            {theme==="Light" ? "Dark": "Light"} Mode
-        </button>
+       <ThemeToggleButton 
+       theme={theme} toggleTheme={toggleTheme}
+       />
         
-        <div id="phone-grp" className="w-screen flex flex-row justify-around md:max-w-2xl xl:max-w-4xl gap-x-3">
-
-            <PhoneScreen
-            userName="Alice"
-            messageFromUser="Bob"
-            isSelectedScreen={selectedPhoneIndex==0}
-            onClick={()=>openMobileDevice(0)}
-            className={
-                selectedPhoneIndex==0 ? 
-                "transition-all absolute z-30 hover:cursor-default left-[45%] md:top-[20%] md:scale-200 xl:scale-150 xl:top-[10%]" 
-                : 
-                "hover:cursor-pointer mb-11"}
-            />
-
-            <PhoneScreen
-            userName="Bob"
-            messageFromUser="Alice"
-            isSelectedScreen={selectedPhoneIndex==1}
-            onClick={()=>openMobileDevice(1)}
-            className={
-                selectedPhoneIndex==1 ? 
-                "transition-all absolute z-30 hover:cursor-default left-[45%] md:top-[20%] md:scale-200 xl:scale-150 xl:top-[10%]" 
-                : 
-                "hover:cursor-pointer mb-11"}
-            />
-
-
-        </div>
+        <PhoneGroup />
+        
                 
         <div id="black-screen"
         onClick={()=>setSelectedPhoneIndex(null)}
@@ -127,44 +45,6 @@ function Body() {
         >
 
         </div>
-
-        {isMobileDevice && selectedPhoneIndex!=null &&
-        // Will only work if width of screen is smaller than 'md' (either phone or tab)
-        <div id="device-overlay-in-mobiles"
-        className="
-            fixed top-0 left-0
-            w-screen h-screen
-            bg-[#F6F9FE]
-            z-50
-            overflow-auto
-            "
-        >
-            {
-                (selectedPhoneIndex == 0)?
-
-                (
-                    <PhoneDisplay
-                        userName="Alice"
-                        messageFromUser="Bob"
-                        isSelected={selectedPhoneIndex==0} 
-                        isMobileDevice={isMobileDevice}
-                    />
-
-                )
-                :
-                (   
-                    <PhoneDisplay
-                        userName="Bob"
-                        messageFromUser="Alice"
-                        isSelected={selectedPhoneIndex==1} 
-                        isMobileDevice={isMobileDevice}
-                    />
-                )
-            }
-
-        </div>
-        }
-
     </div>
     </>
     )

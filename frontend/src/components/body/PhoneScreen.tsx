@@ -11,7 +11,7 @@ interface PhoneScreenProps extends HTMLAttributes<HTMLDivElement>{
 function PhoneScreen(
   { isSelectedScreen, 
     userName,
-    messageFromUser, 
+    messageFromUser,
     ...props 
   }: PhoneScreenProps) {
   const phone_img = "./phone/phone_white.png"
@@ -24,6 +24,7 @@ function PhoneScreen(
         style={{backgroundImage: `url(${phone_img})`}}
         
         className={clsx(`
+        
         h-[297px] w-[150px]
         mt-[80px]
         bg-cover bg-center
