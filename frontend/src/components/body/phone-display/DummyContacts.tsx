@@ -4,15 +4,13 @@ import dummyMessages from "../../../data/dummy-messages.json"
 interface DummyContactProps extends HTMLAttributes<HTMLDivElement>{
   isSelected: boolean
   userName: string
-  messageFromUser: string
   isMobileDevice?: boolean
 }
 
 function DummyContact(
     {
     isSelected, 
-    userName, 
-    messageFromUser, 
+    userName,
     isMobileDevice,
     ...props
     }: DummyContactProps
@@ -25,7 +23,7 @@ function DummyContact(
         {
             dummyMessages.map((contact) =>(
 
-              <div key={contact.id}
+              <div id={contact.id}
               className={`
               
               rounded-2xl

@@ -5,13 +5,11 @@ import clsx from "clsx"
 interface PhoneScreenProps extends HTMLAttributes<HTMLDivElement>{
   isSelectedScreen: boolean,
   userName: string
-  messageFromUser: string
 }
 
 function PhoneScreen(
   { isSelectedScreen, 
     userName,
-    messageFromUser,
     ...props 
   }: PhoneScreenProps) {
   const phone_img = "./phone/phone_white.png"
@@ -36,7 +34,6 @@ function PhoneScreen(
           <PhoneDisplay
               userName={userName}
               isSelected={isSelectedScreen}
-              messageFromUser={messageFromUser}
           />
 
         </div>

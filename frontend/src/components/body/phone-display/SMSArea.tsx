@@ -25,7 +25,7 @@ function SMSArea(
         pb-2
         
         ${isSelected?
-            `top-0 h-[100dvh] w-[99dvw]
+            `top-0 h-[100dvh] w-[100dvw] left-0
             md:top-[17px] md:left-[10.7px] md:rounded-b-xl md:h-[calc(90%)]
             md:w-[calc(86%)]
             xl:w-[calc(87%)]

@@ -1,4 +1,6 @@
 import { useState, type HTMLAttributes } from "react"
+import SliderMenu from "./SliderMenu";
+import SpamBox from "./spam-box";
 
 interface MenuButtonProps extends HTMLAttributes<HTMLDivElement>{
   isSelected: boolean
@@ -14,13 +16,14 @@ function MenuButton(
 ) {
 
     const [isMenuSelected, openMenu] = useState<boolean>(false);
+    const [isSpamBoxOpened, openSpamBox ] = useState<boolean>(false);
 
   return (
     <div
     {...props}
     >
 
-        <button
+        <button id="open-slider-menu"
         onClick={()=>openMenu(true)}
         className={`
         absolute
@@ -51,84 +54,22 @@ function MenuButton(
     
         {/* Slider Menu */}
 
-        <div
-        className={`
-        absolute
+        <SliderMenu 
+        isMenuSelected={isMenuSelected}
+        openMenu={openMenu}
+        isSelected={isSelected}
+        openSpamBox={openSpamBox}
+        />
         
-        left-[-4px]
-        bg-slate-300/80 
-        shadow-md
-        z-200
-        flex flex-col gap-3
-        transition-transform duration-300 ease-in-out
-        md:text-[10px]
+        {
+            isSpamBoxOpened && isSelected &&
 
-        ${isSelected? 
-            isMobileDevice ?
-                `h-screen w-[200px] top-[-6px]`
-                :
-                `h-[268px] w-[70px] xl:w-[100px] mt-[20px]${''/* top css was not working apparently, so used mt to align it little downwards*/}
-                md:ml-[2px] md:rounded-bl-xl top-[-5.6px] md:left-[-6px]
-                xl:rounded-bl-2xl xl:top-[0px] xl:h-[359px] xl:left-[-3px]
-                `
-            :
-            `hidden`
+            <SpamBox
+            openSpamBox={openSpamBox}
+            isSelected={isSelected}
+            
+            />
         }
-        
-        ${isMobileDevice?
-            isMenuSelected ?
-            `translate-x-0`
-            :
-            `-translate-x-full`
-        :
-            isMenuSelected ?
-            `translate-x-0 block`
-            :
-            `hidden`
-        }
-
-        `}
-        >
-        
-        <button
-        id="close-menu-button"
-        onClick={()=>openMenu(false)}
-         className={`
-            self-end
-             py-3 px-2
-            cursor-pointer
-        `}
-        >
-
-            <svg className={`
-            ${isMobileDevice?
-                `h-[25px]`
-                :
-                `h-[15px]`
-            }
-            `}
-            xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#000000"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
-
-        </button>
-
-
-        <button
-        className={`
-         w-full 
-         bg-slate-400
-         
-        hover:cursor-pointer
-        font-bold
-        ${isMobileDevice?
-            `py-3 rounded-lg`:
-            `py-[3px] rounded-sm`
-        }    
-        `}
-        >
-            SPAM Texts
-        </button>
-        </div>
-        
         
 
     </div>

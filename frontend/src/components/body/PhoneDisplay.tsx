@@ -8,7 +8,6 @@ import { useCurrentTime } from "../../hooks/useCurrentTime"
 interface PhoneDisplayProps extends HTMLAttributes<HTMLDivElement>{
   isSelected: boolean
   userName: string
-  messageFromUser: string
   isMobileDevice?: boolean
 }
 
@@ -16,7 +15,6 @@ interface PhoneDisplayProps extends HTMLAttributes<HTMLDivElement>{
 function PhoneDisplay(
   { isSelected, 
     userName,
-    messageFromUser,
     ...props 
   }: PhoneDisplayProps) {
 
@@ -103,7 +101,7 @@ function PhoneDisplay(
           <MainContact 
               isSelected={isSelected}
               userName={userName}
-              messageFromUser={messageFromUser}
+              messageFromUser="Good morning sir!!"
               isMobileDevice={isMobileDevice}
           />
 
@@ -112,7 +110,6 @@ function PhoneDisplay(
           <DummyContact 
             isSelected={isSelected}
             userName={userName}
-            messageFromUser={messageFromUser}
             isMobileDevice={isMobileDevice}
           />
 

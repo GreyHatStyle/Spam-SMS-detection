@@ -4,14 +4,13 @@ import PhoneScreen from "./PhoneScreen"
 function PhoneGroup() {
     const { selectedPhoneIndex, setSelectedPhoneIndex } = useSelectPhoneDevice();
 
-    const openMobileDevice = (index :number) => setSelectedPhoneIndex(index)
+    const openMobileDevice = (index :number) => setSelectedPhoneIndex(index);
 
   return (
     <div id="phone-grp" className="w-screen flex flex-row justify-around md:max-w-2xl xl:max-w-4xl gap-x-3">
 
             <PhoneScreen
             userName="Alice"
-            messageFromUser="Bob"
             
             isSelectedScreen={selectedPhoneIndex==0}
             onClick={()=>openMobileDevice(0)}
@@ -24,7 +23,6 @@ function PhoneGroup() {
 
             <PhoneScreen
             userName="Bob"
-            messageFromUser="Alice"
             isSelectedScreen={selectedPhoneIndex==1}
             onClick={()=>openMobileDevice(1)}
             className={

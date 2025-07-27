@@ -1,11 +1,12 @@
-import { type HTMLAttributes, useState } from "react"
+import { type ComponentProps, useState } from "react";
+import { clsx } from "clsx";
 import SMSArea from "./SMSArea";
 
-interface MainContactProps extends HTMLAttributes<HTMLDivElement>{
-  isSelected: boolean
-  userName: string
-  messageFromUser: string
-  isMobileDevice?: boolean
+interface MainContactProps extends ComponentProps<"div"> {
+  isSelected: boolean;
+  userName: string;
+  messageFromUser: string;
+  isMobileDevice?: boolean;
 }
 
 function MainContact(
@@ -14,6 +15,7 @@ function MainContact(
     userName, 
     messageFromUser, 
     isMobileDevice,
+    className,
     ...props
     }: MainContactProps) {
 
@@ -25,7 +27,7 @@ function MainContact(
     <div id="main-contact"
         {...props}
         onClick={()=>setSmsScreen(true)}
-        className={`
+        className={clsx(`
             rounded-2xl
             flex flex-row
             justify-start items-center
@@ -40,8 +42,10 @@ function MainContact(
             }
 
             ${isSelected? "hover:cursor-pointer hover:bg-gray-200" : " "}
+
+
         
-        `}
+        `, className)}
         >
             <img src="./phone/default-user.png" alt="" 
             className={`
@@ -60,7 +64,11 @@ function MainContact(
                 `text-sm`
             }
             `}>
-                <h3 className="font-bold">{messageFromUser}</h3>
+                <h3 className="font-bold">
+                {
+                userName == "Alice" ? "Bob" : "Alice"    
+                }
+                </h3>
                 <p className={`
                 truncate overflow-hidden whitespace-nowrap
             ${isSelected && isMobileDevice?
@@ -68,7 +76,7 @@ function MainContact(
                 :
                 `text-[8px]`
             }
-            `}>New Message to check if user alive</p>
+            `}>{messageFromUser}</p>
             </div>
 
             {
