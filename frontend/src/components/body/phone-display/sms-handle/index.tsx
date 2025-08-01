@@ -1,19 +1,89 @@
-import { useIsMobile } from "../../../hooks/useIsMobile";
-import { useSelectPhoneDevice } from "../../../hooks/useSelectPhoneDevice"
+import { useIsMobile } from "../../../../hooks/useIsMobile";
+import { useSelectPhoneDevice } from "../../../../hooks/useSelectPhoneDevice"
+import { useState} from "react"; 
+import InputMessage from "./InputMessage";
+import MessageBody from "./MessageBody";
 
 interface SMSAreaProps{
     username: string
     setSmsScreen: (val: boolean) => void
+    setLastMessage: (text: string) => void
+}
+
+export interface MessageType{
+    text: string
+    type: "sent" | "received"
+    timestamp?: Date
 }
 
 function SMSArea(
     {
         username,
         setSmsScreen,
+        setLastMessage,
     }: SMSAreaProps
 ) {
-    const isSelected = useSelectPhoneDevice();
+    const selectedPhone = useSelectPhoneDevice();
     const isMobileDevice = useIsMobile();
+    const isSelected = selectedPhone != null;
+
+    const senderUser = username;
+    const receiverUser = username === "Alice" ? "Bob" : "Alice";
+
+    const senderStorageKey = `${senderUser}_phone_messages`;
+    const receiverStorageKey = `${receiverUser}_phone_messages`;
+
+    
+
+    const [messages, setMessage] = useState<MessageType[]>(() => {
+        const savedMessages = localStorage.getItem(senderStorageKey);
+        return savedMessages ? JSON.parse(savedMessages) : [];
+    });
+
+    
+    const addMessage = ({text, type}: MessageType): void => {
+        if(text.trim() === "") return;
+        
+        setMessage(prev => [
+            ...prev,
+            {
+                text: text,
+                type: type,
+            }
+        ]);
+
+        // Update THIS user's last message display
+        setLastMessage(text);
+
+        // re-updating the sender's message
+        const senderMessages = JSON.parse(localStorage.getItem(senderStorageKey) || '[]');
+
+        const updatedSenderMessage: MessageType[] = [
+            ...senderMessages,
+            {
+                text: text,
+                type: "sent",
+            }
+        ];
+
+        // making the sender's message and received for receiver's perspective.
+
+        const receiverMessages = JSON.parse(localStorage.getItem(receiverStorageKey) || '[]');
+
+        const updatedReceiverMessages: MessageType[] = [
+            ...receiverMessages,
+            {
+                text: text,
+                type: "received",
+            }
+        ]
+
+        localStorage.setItem(senderStorageKey, JSON.stringify(updatedSenderMessage));
+        localStorage.setItem(receiverStorageKey, JSON.stringify(updatedReceiverMessages));
+
+    }
+
+    // console.log("Text message: ", messageRef.current);
 
     return (
     
@@ -96,76 +166,17 @@ function SMSArea(
             </div>
 
             {/* Messages Body  */}
-            <div id="message-body"
-            className={`
-            flex-1 overflow-y-auto
-            `}
-            >
-                SMS messages
-            </div>
+            
+            <MessageBody
+            messages={messages}
+            />
 
             
             {/* Input Message form */}
-            <form action=""
-            
-            className={`
-                flex flex-row items-center
-                
-                ${isSelected?
-                    `h-[60px] p-2 gap-4 
-                    md:h-[30px] md:p-0 md:gap-1 `
-                    :
-                    `h-[30px] p-1 gap-2`
-                }
-            `}
-            >
-
-                
-                <input type="text" 
-                className={`bg-[#EAF1F9] flex-1 rounded-2xl
-                    ${isSelected ?
-                        `h-[40px]
-                        md:w-[30px] md:h-[30px]`
-                        :
-                        `w-[60px] cursor-pointer pointer-events-none`
-                    }    
-                `}
-                />
-
-                <button type="submit"
-                className={`
-                bg-[#D0E5F6]
-                rounded-[50%]
-                
-                hover:cursor-pointer
-                ${isSelected ?
-                    `py-[10px] pr-[10px] pl-[11px]
-
-                    ${'' /*When viewing on tablet or desktop*/}
-                    md:h-[30px] md:w-[30px]
-                    md:py-[2px] md:pl-[7px] 
-
-                    `
-                    :
-                    `py-[2px] pl-[4px] pr-[3px]
-                    
-                    `
-                }
-                `}
-                >
-                    <svg 
-                    className={`
-                        ${isSelected?
-                            `h-[26px] md:h-[20px]`
-                            :
-                            `h-[16px]`
-                        }
-                    `}
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#000000"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
-
-                </button>
-
-            </form>
+            <InputMessage
+                addMessage={addMessage}
+                isSelected={isSelected}
+            />
 
         </div>
   )

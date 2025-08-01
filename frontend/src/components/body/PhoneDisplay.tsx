@@ -20,6 +20,8 @@ function PhoneDisplay(
 
     const isMobileDevice = useIsMobile();
     const currentTime = useCurrentTime();
+
+    
     
 
 // bg-[#F6F9FE]
@@ -101,7 +103,6 @@ function PhoneDisplay(
           <MainContact 
               isSelected={isSelected}
               userName={userName}
-              messageFromUser="Good morning sir!!"
               isMobileDevice={isMobileDevice}
           />
 

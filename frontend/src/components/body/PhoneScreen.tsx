@@ -1,24 +1,23 @@
-import type { HTMLAttributes } from "react"
+import type { ComponentProps } from "react"
 import PhoneDisplay from "./PhoneDisplay"
 import clsx from "clsx"
 
-interface PhoneScreenProps extends HTMLAttributes<HTMLDivElement>{
-  isSelectedScreen: boolean,
-  userName: string
+interface PhoneScreenProps extends ComponentProps<"div"> {
+  isSelectedScreen: boolean;
+  userName: string;
 }
 
-function PhoneScreen(
-  { isSelectedScreen, 
-    userName,
-    ...props 
-  }: PhoneScreenProps) {
+function PhoneScreen({
+  isSelectedScreen, 
+  userName, 
+  ...props
+}: PhoneScreenProps) {
   const phone_img = "./phone/phone_white.png"
 
 
 
   return (
-    <div>
-        <div {...props}
+    <div {...props}
         style={{backgroundImage: `url(${phone_img})`}}
         
         className={clsx(`
@@ -37,7 +36,6 @@ function PhoneScreen(
           />
 
         </div>
-    </div>
   )
 }
 

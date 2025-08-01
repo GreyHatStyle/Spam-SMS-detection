@@ -1,32 +1,68 @@
-import { type ComponentProps, useState } from "react";
+import { type ComponentProps, useEffect, useState } from "react";
 import { clsx } from "clsx";
-import SMSArea from "./SMSArea";
+import SMSArea, { type MessageType } from "./sms-handle";
+import { useMessages } from "../../../hooks/useMessages";
+import aliceNotiSound from "../../../assets/alice_notify.mp3";
+import bobNotiSound from "../../../assets/bob_notify.mp3";
 
 interface MainContactProps extends ComponentProps<"div"> {
   isSelected: boolean;
   userName: string;
-  messageFromUser: string;
   isMobileDevice?: boolean;
 }
 
 function MainContact(
     {
     isSelected, 
-    userName, 
-    messageFromUser, 
+    userName,
     isMobileDevice,
     className,
     ...props
     }: MainContactProps) {
 
-    const [numberOfMessages, _] = useState<number>(10);
+    const [numberOfMessages, setNumberOfMessages] = useState<number>(0);
     const [smsScreenSelected, setSmsScreen] = useState<boolean>(false);
+    
+    // Replace the useState with useMessages hook
+    const { lastMessage, setLastMessage } = useMessages();
+    
+    // Nothing worked so using a little brute force practice
+    let oldMessages : MessageType[] = JSON.parse(localStorage.getItem(`${userName}_phone_messages`) || '[]');
+    useEffect( () => {
+        const intervalId = setInterval(() =>{
+            const messageData: MessageType[] = JSON.parse(localStorage.getItem(`${userName}_phone_messages`) || '[]');
+            if(messageData.length > 0){
+                setLastMessage(messageData[messageData.length - 1].text);
+            }
+            if(oldMessages.length !== messageData.length){
+                if(messageData.length > 0){
+                    if(messageData[messageData.length - 1].type == "received"){
+                        oldMessages = messageData;
+                        setNumberOfMessages(prev => prev + 1);
+                        let audio = null;
+                        if(userName === "Alice"){
+                            audio = new Audio(aliceNotiSound);
+                        }
+                        else{
+                            audio = new Audio(bobNotiSound);
+                        }
+                        console.log("Audio username: ", userName);
+                        audio.play();
+                    }
+                }
+                
+            }
+
+        }, 1000) // check every second
+
+        return () => clearInterval(intervalId);
+    }, [lastMessage, setLastMessage]);
 
     return (
         <>
     <div id="main-contact"
         {...props}
-        onClick={()=>setSmsScreen(true)}
+        onClick={()=>{setSmsScreen(true); setNumberOfMessages(0); } }
         className={clsx(`
             rounded-2xl
             flex flex-row
@@ -76,7 +112,7 @@ function MainContact(
                 :
                 `text-[8px]`
             }
-            `}>{messageFromUser}</p>
+            `}>{lastMessage}</p>
             </div>
 
             {
@@ -91,7 +127,7 @@ function MainContact(
             ${isSelected && isMobileDevice?
                 `py-1 px-2`
                 :
-                `text-[8px] py-[1px] px-[2px]`
+                `text-[8px] py-[1px] px-[4px]`
             }
 
             `}
@@ -103,7 +139,8 @@ function MainContact(
         
         {
             smsScreenSelected && isSelected && 
-            <SMSArea 
+            <SMSArea
+            setLastMessage={setLastMessage} 
             username={userName}
             setSmsScreen={setSmsScreen}
             />

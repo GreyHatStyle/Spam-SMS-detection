@@ -35,7 +35,6 @@ function SpamMessagesStack(
             isSelected={isSelected}
             isMobileDevice={isMobileDevice}
             userName={selectedPhone.selectedPhoneIndex == 0? "Alice" : "Bob"}
-            messageFromUser="This is spam text"
             />
         </div>
 
