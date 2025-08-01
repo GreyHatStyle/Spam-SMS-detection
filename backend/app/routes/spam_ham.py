@@ -1,14 +1,15 @@
 import os
 
-from fastapi import APIRouter
+from enums.status_codes import HTTP_STATUS
+from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
+from middleware import RateLimiter
 from pydantic import BaseModel
 from tensorflow.keras.models import load_model
-
-from enums.status_codes import HTTP_STATUS
 from utils import predict_spam_ham
 
 spam_ham_route = APIRouter()
+
 
 vectorizer_path = os.path.join(
     os.path.dirname(__file__),
@@ -27,7 +28,9 @@ class SMS_message(BaseModel):
     text: str
 
 @spam_ham_route.post("/ml/spam", )
-async def is_spam(sms: SMS_message):
+@RateLimiter.rate_limit_anon(max_calls=50, period=24*60*60) # Allowing only 50 api request every day
+@RateLimiter.rate_limit_anon(max_calls=2, period=1) # Protecting burst requests
+async def is_spam(sms: SMS_message, request: Request):
     try:
         vec_text = vectorizer_model(sms.text)
         

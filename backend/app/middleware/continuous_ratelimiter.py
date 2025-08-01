@@ -2,11 +2,10 @@ import time
 from collections import defaultdict
 from typing import Callable, Dict
 
+from enums.status_codes import HTTP_STATUS
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
-
-from enums.status_codes import HTTP_STATUS
 from utils.logger import logger
 
 
