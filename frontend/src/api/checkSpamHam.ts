@@ -8,7 +8,7 @@ interface SpamHamResponse{
 }
 
 const checkSpamHamApi = async (text: string): Promise<SpamHamResponse> => {
-    const API_URL = import.meta.env.SPAM_HAM_MODEL_API_URL;
+    const API_URL = import.meta.env.VITE_REACT_APP_SPAM_HAM_MODEL_API_URL;
 
     const response = await axios.post<SpamHamResponse>(
         `${API_URL}/ml/spam`,
