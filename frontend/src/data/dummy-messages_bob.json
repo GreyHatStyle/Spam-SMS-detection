@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "userName": "Jhonson",
+    "messageFromUser": "Free for coffee break?",
+    "unreadCount": 1
+  },
+  {
+    "id": "2",
+    "userName": "Sarthak",
+    "messageFromUser": "Yo, why your name in every CP question?",
+    "unreadCount": 1
+  },
+  {
+    "id": "3",
+    "userName": "Elisa",
+    "messageFromUser": "Well.. we obviously knew that would happen",
+    "unreadCount": 2
+  },
+  {
+    "id": "4",
+    "userName": "Rock",
+    "messageFromUser": "No I don't want to meet scissors again!!",
+    "unreadCount": 0
+  },
+  {
+    "id": "5",
+    "userName": "Adam",
+    "messageFromUser": "Yeah the algorithm is ready.",
+    "unreadCount": 0
+  }
+]

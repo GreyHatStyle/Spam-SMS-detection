@@ -6,12 +6,14 @@ import type { MessageType } from ".";
 interface InputMessageProps{
     isSelected: boolean
     addMessage: ({text, type}: MessageType) => void
+    addSpamMessage: ({text, type}: MessageType) => void
 }
 
 function InputMessage(
     {
         isSelected,
         addMessage,
+        addSpamMessage,
     }: InputMessageProps
 ) {
     
@@ -35,10 +37,15 @@ function InputMessage(
             type: "sent",
         }
 
-        addMessage(textMessage);
         mutate(messageRef.current, {
             onSuccess: (data) => {
                 console.log("API Success - The text is: ", data?.message);
+                if(data?.message === "Spam"){
+                    addSpamMessage(textMessage);
+                }
+                else{
+                    addMessage(textMessage);
+                }
             },
             onError: (error) => {
                 console.log("API Error: ", error);

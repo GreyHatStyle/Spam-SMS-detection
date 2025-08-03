@@ -1,5 +1,6 @@
 import { type HTMLAttributes} from "react"
-import dummyMessages from "../../../data/dummy-messages.json"
+import dummyMessagesAlice from "../../../data/dummy-messages_alice.json"
+import dummyMessagesBob from "../../../data/dummy-messages_bob.json"
 
 interface DummyContactProps extends HTMLAttributes<HTMLDivElement>{
   isSelected: boolean
@@ -15,6 +16,14 @@ function DummyContact(
     ...props
     }: DummyContactProps
 ){
+
+    let dummyMessages = [];
+    if(userName === "Alice"){
+      dummyMessages = dummyMessagesAlice;
+    }
+    else{
+      dummyMessages = dummyMessagesBob;
+    }
 
     return (
         <div {...props}

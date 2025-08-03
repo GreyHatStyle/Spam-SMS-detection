@@ -32,10 +32,11 @@ function SMSArea(
 
     const senderStorageKey = `${senderUser}_phone_messages`;
     const receiverStorageKey = `${receiverUser}_phone_messages`;
-
     
+    const receiverSpamKey = `${receiverUser}_spam_messages`
 
-    const [messages, setMessage] = useState<MessageType[]>(() => {
+    // Display the sms in SMS_BODY
+    const [messages, setMessage] = useState<MessageType[]>(() => { 
         const savedMessages = localStorage.getItem(senderStorageKey);
         return savedMessages ? JSON.parse(savedMessages) : [];
     });
@@ -43,7 +44,7 @@ function SMSArea(
     
     const addMessage = ({text, type}: MessageType): void => {
         if(text.trim() === "") return;
-        
+
         setMessage(prev => [
             ...prev,
             {
@@ -80,6 +81,50 @@ function SMSArea(
 
         localStorage.setItem(senderStorageKey, JSON.stringify(updatedSenderMessage));
         localStorage.setItem(receiverStorageKey, JSON.stringify(updatedReceiverMessages));
+
+    }
+
+    
+    
+    /**
+     * Adds Spam message/text in local storage.
+     * @returns void
+     */
+    const addSpamMessage = ({text}: MessageType): void => {
+        if(text.trim() === "") return;
+
+        // making the sender's message and received for receiver's perspective.
+
+        const receiverMessages = JSON.parse(localStorage.getItem(receiverSpamKey) || '[]');
+
+        const updatedReceiverMessages: MessageType[] = [
+            ...receiverMessages,
+            {
+                text: text,
+                type: "received",
+            }
+        ]
+
+        // localStorage.setItem(senderSpamKey, JSON.stringify(updatedSenderMessage));
+        localStorage.setItem(receiverSpamKey, JSON.stringify(updatedReceiverMessages));
+
+        // Did this to show notification to spam box
+        const spam_no_str = localStorage.getItem(`spam_no_${receiverUser}`);
+        console.log("spam no: ", spam_no_str)
+
+        let spam_number: number = parseInt(spam_no_str || "0");
+        
+        if (spam_number == 0){
+            console.log("spam no: null", spam_no_str)
+            spam_number = 1;
+        }
+        else{
+            console.log("spam no: parseInt", spam_no_str);
+            spam_number += 1;
+        }
+        
+        console.log("spam no: last", spam_number);
+        localStorage.setItem(`spam_no_${receiverUser}`, spam_number.toString());
 
     }
 
@@ -175,6 +220,7 @@ function SMSArea(
             {/* Input Message form */}
             <InputMessage
                 addMessage={addMessage}
+                addSpamMessage={addSpamMessage}
                 isSelected={isSelected}
             />
 

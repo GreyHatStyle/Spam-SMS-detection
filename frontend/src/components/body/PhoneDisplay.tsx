@@ -82,6 +82,7 @@ function PhoneDisplay(
         <MenuButton
           isSelected={isSelected}
           isMobileDevice={isMobileDevice}
+          userName={userName}
         />
 
         <div id="sms-messages-stack"

@@ -1,9 +1,11 @@
 import { useState, type HTMLAttributes } from "react"
 import SliderMenu from "./SliderMenu";
 import SpamBox from "./spam-box";
+import MenuNotification from "./MenuNotification";
 
 interface MenuButtonProps extends HTMLAttributes<HTMLDivElement>{
   isSelected: boolean
+  userName: string
   isMobileDevice?: boolean
 }
 
@@ -11,12 +13,14 @@ function MenuButton(
     {
         isSelected,
         isMobileDevice,
+        userName,
         ...props
     }: MenuButtonProps
 ) {
 
     const [isMenuSelected, openMenu] = useState<boolean>(false);
     const [isSpamBoxOpened, openSpamBox ] = useState<boolean>(false);
+    
 
   return (
     <div
@@ -48,8 +52,15 @@ function MenuButton(
             }    
             `}
             xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+
+            <MenuNotification
+            isSelected={isSelected}
+            userName={userName}
+            />
             
         </button>
+
+        
 
     
         {/* Slider Menu */}
@@ -59,6 +70,7 @@ function MenuButton(
         openMenu={openMenu}
         isSelected={isSelected}
         openSpamBox={openSpamBox}
+        userName={userName}
         />
         
         {

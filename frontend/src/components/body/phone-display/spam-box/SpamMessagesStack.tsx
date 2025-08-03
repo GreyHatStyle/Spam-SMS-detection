@@ -1,5 +1,5 @@
-import MainContact from "../MainContact";
 import { useSelectPhoneDevice } from "../../../../hooks/useSelectPhoneDevice";
+import SpamContact from "./SpamContact";
 
 interface SpamMessagesStackProps{
     isSelected: boolean
@@ -31,7 +31,7 @@ function SpamMessagesStack(
         }    
         `}
         >
-            <MainContact
+            <SpamContact
             isSelected={isSelected}
             isMobileDevice={isMobileDevice}
             userName={selectedPhone.selectedPhoneIndex == 0? "Alice" : "Bob"}
