@@ -1,7 +1,10 @@
 # SPAM HAM SMS Detection
-The website simulates a two-way SMS conversation between two users *Alice* and *Bob*, to demonstrate real-time **SPAM** messages detection using Deep learning.
+The website simulates a two-way SMS conversation between two users *Alice* and *Bob*, to demonstrate real-time **SPAM** messages detection using Deep learning. Its **Responsive** and can work in minimum 320px screen width.
 
 - Technology Stack - React JS + Typescript and FastAPI.
+- Headless Website - 
+    - *Frontend* is deployed in **Vercel**.
+    - *Backend* is deployed separately in **AWS EC2 instance**.
 - Link - https://spam-sms-detection-virid.vercel.app/
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/4637a77b-9038-4dcb-a1ed-5581119a04de" />
@@ -28,7 +31,7 @@ The website simulates a two-way SMS conversation between two users *Alice* and *
 - This effectively simulates real-time **Spam SMS** filtering between mobile devices.
 
 ## Public API Access
-You can directly use the hosted **Spam Detection API** to classify your own sms or messages also, without running the project locally.
+You can directly use my hosted **Spam Detection API** to classify your own sms or messages also, without running the project locally.
 
 > **Usage Limit:** To conserve limited server resources, only ***50 requests per day*** are allowed per user, hence please use the API responsibly.
 
