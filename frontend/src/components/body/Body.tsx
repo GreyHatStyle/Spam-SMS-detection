@@ -3,6 +3,7 @@ import ThemeToggleButton from "./ThemeToggleButton"
 
 import PhoneGroup from "./PhoneGroup"
 import { useSelectPhoneDevice } from "../../hooks/useSelectPhoneDevice"
+import { useJoyStore } from "../../store/useJoyStore"
 
 function Body() {
     const backgroundImgLight = "./wallpaper/wall-light.png"
@@ -10,9 +11,11 @@ function Body() {
 
     const { theme, toggleTheme } = useTheme();
     const { selectedPhoneIndex, setSelectedPhoneIndex } = useSelectPhoneDevice();
-
-
-    console.log("Which Phone selected: ", selectedPhoneIndex);
+    const setRun = useJoyStore((state) => state.setRun);
+    const joyrideStepIndex = useJoyStore((state) => state.tState.stepIndex);
+    const setJoyStepIndex = useJoyStore((state) => state.setStepIndex);
+    
+    
 
     return (
     <>
@@ -40,7 +43,19 @@ function Body() {
         
                 
         <div id="black-screen"
-        onClick={()=>setSelectedPhoneIndex(null)}
+        onClick={()=>{
+          setSelectedPhoneIndex(null); 
+          setRun(false);
+          if (joyrideStepIndex >= 4){
+            if(joyrideStepIndex >= 7){
+            // do nothing since this state should direct be true in spam box
+            return;
+          }
+            // Its bob's phone
+            setRun(true);
+            setJoyStepIndex(joyrideStepIndex + 1);
+            console.log("Black screen being clicked!!")
+          }}}
         className={selectedPhoneIndex != null ? "block fixed h-screen w-screen bg-black/80 z-10" : "none"}
         >
 

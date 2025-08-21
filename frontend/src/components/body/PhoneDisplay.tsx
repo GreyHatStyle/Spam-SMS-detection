@@ -87,11 +87,13 @@ function PhoneDisplay(
 
         <div id="sms-messages-stack"
         // To hide the scroll bar
-        style={{
-          msOverflowStyle: "none",
-          scrollbarWidth: "none"
-        }}
-        className={`overflow-y-scroll md:max-h-[180px] xl:max-h-[270px]
+        // style={{
+        //   msOverflowStyle: "none",
+        //   scrollbarWidth: "none",
+        //   overflowY: "scroll"
+          
+        // }}
+        className={`force-scroll-y md:max-h-[180px] xl:max-h-[270px]
           
           ${isSelected ? `` : `max-h-[180px]`}
           

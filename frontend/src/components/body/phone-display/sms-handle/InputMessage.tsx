@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useCheckSpamHam } from "../../../../api/checkSpamHam";
 import type { MessageType } from ".";
+import { useJoyStore } from "../../../../store/useJoyStore";
 
 
 interface InputMessageProps{
@@ -21,7 +22,8 @@ function InputMessage(
     const messageRef = useRef<string>("");
     const {mutate} = useCheckSpamHam();
     const [inputBoxVal, setInputBoxVal] = useState<string>("");
-
+    const setJoyrideIndex = useJoyStore((state) => state.setStepIndex);
+    const joyrideIndex = useJoyStore((state) => state.tState.stepIndex);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         messageRef.current = e.target.value;
@@ -31,7 +33,7 @@ function InputMessage(
     const handleSendMessage = (e: React.FormEvent) =>{
         e.preventDefault();
         // console.log("Message: ", messageRef.current);
-
+        setJoyrideIndex(joyrideIndex + 1);
         const textMessage: MessageType = {
             text: messageRef.current,
             type: "sent",
@@ -57,7 +59,9 @@ function InputMessage(
     }
 
   return (
-    <form action=""
+    <form 
+    id="sms-input-area"
+    action=""
             
             className={`
                 flex flex-row items-center

@@ -13,15 +13,17 @@ function PhoneScreen({
   ...props
 }: PhoneScreenProps) {
   const phone_img = "./phone/phone_white.png"
+  // const phone_dark_img = "./phone/phone_dark.png"
 
 
-
+  console.log("Username: ", `${userName}-phone-screen`)
   return (
     <div {...props}
+        id="main-phone-screen"
         style={{backgroundImage: `url(${phone_img})`}}
         
         className={clsx(`
-        
+        ${userName}-phone-screen
         h-[297px] w-[150px]
         mt-[80px]
         bg-cover bg-center

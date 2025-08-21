@@ -4,7 +4,7 @@ import SMSArea, { type MessageType } from "./sms-handle";
 import { useMessages } from "../../../hooks/useMessages";
 import aliceNotiSound from "../../../assets/alice_notify.mp3";
 import bobNotiSound from "../../../assets/bob_notify.mp3";
-
+import { useJoyStore } from "../../../store/useJoyStore";
 interface MainContactProps extends ComponentProps<"div"> {
   isSelected: boolean;
   userName: string;
@@ -22,6 +22,10 @@ function MainContact(
 
     const [numberOfMessages, setNumberOfMessages] = useState<number>(0);
     const [smsScreenSelected, setSmsScreen] = useState<boolean>(false);
+
+    const setJoyrideRun = useJoyStore((state) => state.setRun);
+    const joyrideRun = useJoyStore((state) => state.tState.run);
+    const joyrideIndex = useJoyStore((state) => state.tState.stepIndex);
     
     // Replace the useState with useMessages hook
     const { lastMessage, setLastMessage } = useMessages();
@@ -59,11 +63,25 @@ function MainContact(
     }, [lastMessage, setLastMessage]);
 
     return (
-        <>
-    <div id="main-contact"
-        {...props}
-        onClick={()=>{setSmsScreen(true); setNumberOfMessages(0); } }
+    <div id="main-contact" {...props}>
+    <div
+        onClick={()=>{
+            if (isSelected){
+                
+                if(joyrideIndex<7){ 
+                    setJoyrideRun(true);
+                }
+                
+                setSmsScreen(true); 
+                setNumberOfMessages(0); 
+            }
+
+            console.log("Run status ===========================> ", joyrideRun)
+            console.log("Index pos joy ===========================> ", joyrideIndex)
+            
+        } }
         className={clsx(`
+            joyride-contact-target
             rounded-2xl
             flex flex-row
             justify-start items-center
@@ -138,14 +156,14 @@ function MainContact(
         </div>
         
         {
-            smsScreenSelected && isSelected && 
-            <SMSArea
-            setLastMessage={setLastMessage} 
-            username={userName}
-            setSmsScreen={setSmsScreen}
-            />
-        }
-        </>
+                smsScreenSelected && isSelected && 
+                <SMSArea
+                setLastMessage={setLastMessage} 
+                username={userName}
+                setSmsScreen={setSmsScreen}
+                />
+            }
+        </div>
     )
 }
 

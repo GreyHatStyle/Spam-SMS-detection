@@ -3,6 +3,7 @@ import { clsx } from "clsx";
 import { type MessageType } from "./../sms-handle";
 
 import SpamSMSArea from "./SpamSMSArea";
+import { useJoyStore } from "../../../../store/useJoyStore";
 // import aliceNotiSound from "../../../../assets/alice_notify.mp3";
 // import bobNotiSound from "../../../../assets/bob_notify.mp3";
 
@@ -42,11 +43,27 @@ function SpamContact(
         localStorage.setItem(`spam_no_${userName}`, "0");
     }
 
+    const joyrideStepIndex = useJoyStore((state) => state.tState.stepIndex);
+    const setJoyrideRun = useJoyStore((state) => state.setRun);
+    const setJoyrideStepIndex = useJoyStore((state) => state.setStepIndex);
+
     return (
         <>
     <div id="spam-contact"
         {...props}
-        onClick={()=>{setSmsScreen(true); setNumberOfMessages(0); clearNotificationNumber()} }
+        onClick={()=>{
+            setSmsScreen(true); 
+            setNumberOfMessages(0); 
+            clearNotificationNumber();
+
+            // final step for checking spam message in react-joyride tutorial
+            if(joyrideStepIndex == 9){
+                setJoyrideRun(true);
+                setJoyrideStepIndex(10);
+                console.log("joyerideSTep index for SPAM BOX: ", joyrideStepIndex);
+            }
+
+        } }
         className={clsx(`
             rounded-2xl
             flex flex-row
