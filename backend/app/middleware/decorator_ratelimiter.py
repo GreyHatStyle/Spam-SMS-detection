@@ -25,7 +25,7 @@ class RateLimiter:
             @wraps(func)
             async def wrapper(*args, **kwargs) -> Any:
                 
-                request: Request = None
+                request: Request | None = None
                 for arg in args:
                     if isinstance(arg, Request):
                         request = arg

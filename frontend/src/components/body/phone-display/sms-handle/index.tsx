@@ -1,9 +1,9 @@
 import { useIsMobile } from "../../../../hooks/useIsMobile";
 import { useSelectPhoneDevice } from "../../../../hooks/useSelectPhoneDevice"
-import { useState} from "react"; 
+import { useEffect, useState} from "react"; 
 import InputMessage from "./InputMessage";
 import MessageBody from "./MessageBody";
-import { useUpdateEffect } from "react-use";
+// import { useUpdateEffect } from "react-use";
 import { useJoyStore } from "../../../../store/useJoyStore";
 
 interface SMSAreaProps{
@@ -135,22 +135,21 @@ function SMSArea(
     const joyrideStepIndex = useJoyStore((state) => state.tState.stepIndex);
     const setJoyrideRun = useJoyStore((state) => state.setRun);
 
-    // Check when component appears and joyride is at step 7
-    useUpdateEffect(() => {
+    // Check when component appears and joyride is at step 8
+    useEffect(() => {
         console.log("Current step in sms box: ", joyrideStepIndex);
+
         if (isSelected && joyrideStepIndex === 8) {
             setTimeout(() => {
-                setJoyrideRun(true);
-                // setJoyrideStepIndex(9);
-                console.log("It happened the step is changed!!!")
+            setJoyrideRun(true);
+            console.log("It happened the step is changed!!!");
             }, 100);
         }
-        // The 8th step is done now in 9th step it needs to be turned off
+
         if (isSelected && joyrideStepIndex === 10) {
             setTimeout(() => {
-                setJoyrideRun(false);
-                
-                console.log("Turning of the state since the SPAM Message has been sent")
+            setJoyrideRun(false);
+            console.log("Turning off the state since the SPAM Message has been sent");
             }, 100);
         }
     }, [isSelected, joyrideStepIndex]);
