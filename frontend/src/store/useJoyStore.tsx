@@ -92,9 +92,11 @@ const steps: Step[] = [
               <br />
               Example: 
               <br />
-              1. You’ve been selected for a free vacation!
+              1. Your account has been suspended. Click here to reactivate: [some malicious link]
               <br />
               2. Congratulations Customer!! you have been debited 2 lakh rupees!!
+              <br/>
+              3. Need cash fast? Get instant ₹50,000 loan today. Apply now
             </div>
         ),
         disableBeacon: true,

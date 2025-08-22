@@ -4,12 +4,12 @@ from tensorflow.keras.models import load_model
 
 vectorizer_path = os.path.join(
     os.path.dirname(__file__),
-    "../ml_models/vectorizer-models/spam_ham_text_vectorizer.keras"
+    "../ml_models/vectorizer-models/spam_ham_text_vectorizer_2.keras"
 )
 
 lstm_path = os.path.join(
     os.path.dirname(__file__),
-    "../ml_models/predictive-models/spam_ham_BiLstm.keras"
+    "../ml_models/predictive-models/spam_ham_BiLstm_2.keras"
 )
 
 vectorizer_model = load_model(vectorizer_path)

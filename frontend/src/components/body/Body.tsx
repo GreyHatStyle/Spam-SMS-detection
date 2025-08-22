@@ -8,12 +8,16 @@ function Body() {
     const backgroundImgLight = "./wallpaper/wall-light.png"
     const backgroundImgDark = "./wallpaper/wall-dark.png"
 
-    const { theme, toggleTheme } = useTheme();
+    const { theme, toggleTheme, setTheme } = useTheme();
     const { selectedPhoneIndex, setSelectedPhoneIndex } = useSelectPhoneDevice();
     const setRun = useJoyStore((state) => state.setRun);
     const joyrideStepIndex = useJoyStore((state) => state.tState.stepIndex);
     const setJoyStepIndex = useJoyStore((state) => state.setStepIndex);
     
+    // If user's history (last website visit) had dark theme
+    if (theme == "Dark"){
+      setTheme("Dark");
+    }
     
 
     return (
