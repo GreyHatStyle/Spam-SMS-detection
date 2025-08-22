@@ -20,7 +20,7 @@ function SpamBox(
     <div id="Spam-Box"
     className={`
     absolute
-   bg-[#F6F9FE]
+   bg-[#F6F9FE] dark:bg-phone-dark-body
     flex flex-col items-center
     ${isMobileDevice ?
         `h-[100dvh] w-[100dvw] top-0`

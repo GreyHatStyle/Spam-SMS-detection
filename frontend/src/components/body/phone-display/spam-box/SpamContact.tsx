@@ -68,7 +68,7 @@ function SpamContact(
             rounded-2xl
             flex flex-row
             justify-start items-center
-            bg-white
+            bg-white dark:bg-dark-contact-body
             shadow-sm
             ${isSelected && isMobileDevice?
             // Phone on hand
@@ -78,7 +78,7 @@ function SpamContact(
             `gap-2 p-1 my-1`
             }
 
-            ${isSelected? "hover:cursor-pointer hover:bg-gray-200" : " "}
+            ${isSelected? "hover:cursor-pointer hover:bg-gray-200 hover:dark:bg-dark-contact-hover" : " "}
 
 
         

@@ -19,9 +19,10 @@ function BackSpamBoxBut(
         className="absolute top-0 left-0
             md:top-[-5px] md:left-[-3px]
             xl:top-0 xl:left-0   
-            bg-[#D1E5F4] hover:cursor-pointer"
+            bg-[#D1E5F4] dark:bg-slate-700 hover:cursor-pointer"
         >
             <svg className={`
+            dark:fill-white
             ${isMobileDevice?
                 `h-[60px] py-2 px-2`
                 :

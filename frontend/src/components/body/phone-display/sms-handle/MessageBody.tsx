@@ -29,9 +29,9 @@ function MessageBody(
                     py-4 px-3 rounded-t-4xl 
                     md:py-2 md:px-2
                     ${message.type === "sent" ? 
-                        `bg-[#D1E5F6] self-end rounded-l-4xl`
+                        `bg-[#D1E5F6] dark:bg-dark-sms-sent dark:text-black self-end rounded-l-4xl`
                         :
-                        `bg-[#F0F0F2] self-start rounded-r-4xl`
+                        `bg-[#F0F0F2] dark:bg-dark-sms-received self-start rounded-r-4xl`
                     }
                     max-w-[60dvw]
                     `}

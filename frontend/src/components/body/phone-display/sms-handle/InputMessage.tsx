@@ -81,7 +81,7 @@ function InputMessage(
                 onChange={handleInputChange}
                 value={inputBoxVal}
                 placeholder="Enter message here..." 
-                className={`bg-[#EAF1F9] flex-1 rounded-2xl
+                className={`bg-[#EAF1F9] dark:bg-dark-input-body flex-1 rounded-2xl
                     ${isSelected ?
                         `h-[40px]
                         md:w-[30px] md:h-[30px] md:text-[7px] 

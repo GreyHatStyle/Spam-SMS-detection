@@ -45,6 +45,7 @@ function MenuButton(
 
             <svg 
             className={`
+                dark:fill-white
             ${isSelected && isMobileDevice?
                 `h-[30px] ml-3`
                 :

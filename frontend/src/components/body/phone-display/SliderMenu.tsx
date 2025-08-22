@@ -28,7 +28,7 @@ function SliderMenu(
         absolute
         
         left-[-4px]
-        bg-slate-300/80 
+        bg-slate-300/80 dark:bg-slate-600/80
         shadow-md
         z-200
         flex flex-col gap-3
@@ -73,6 +73,7 @@ function SliderMenu(
         >
 
             <svg className={`
+            dark:fill-white
             ${isMobileDevice?
                 `h-[25px]`
                 :
@@ -103,6 +104,7 @@ function SliderMenu(
         >
             <svg 
             className={`
+                dark:fill-white
             ${isSelected ? 
                 `h-[24px] md:h-[10px] xl:h-[12px]`
                 :

@@ -1,9 +1,8 @@
-import { useTheme } from "../../hooks/useTheme"
 import ThemeToggleButton from "./ThemeToggleButton"
-
 import PhoneGroup from "./PhoneGroup"
 import { useSelectPhoneDevice } from "../../hooks/useSelectPhoneDevice"
 import { useJoyStore } from "../../store/useJoyStore"
+import { useTheme } from "../../hooks/useTheme"
 
 function Body() {
     const backgroundImgLight = "./wallpaper/wall-light.png"

@@ -85,8 +85,9 @@ function MainContact(
             rounded-2xl
             flex flex-row
             justify-start items-center
-            bg-white
+            bg-white dark:bg-dark-contact-body
             shadow-sm
+            dark:text-dark-text-less-mode
             ${isSelected && isMobileDevice?
             // Phone on hand
             `gap-4 p-2 my-2`
@@ -95,7 +96,7 @@ function MainContact(
             `gap-2 p-1 my-1`
             }
 
-            ${isSelected? "hover:cursor-pointer hover:bg-gray-200" : " "}
+            ${isSelected? "hover:cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-contact-hover" : " "}
 
 
         

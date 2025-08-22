@@ -38,8 +38,8 @@ function PhoneDisplay(
         `relative ${/* Added this relative to position Slider menu button*/''}`
     }
       
-    text-sm
-    bg-[#F6F9FE]
+    text-sm dark:text-dark-text-mode
+    bg-[#F6F9FE] dark:bg-phone-dark-body
     ml-[2px] mr-[2.3px] mt-[2.8px]
     flex flex-col
     `}

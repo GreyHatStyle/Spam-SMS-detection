@@ -12,3 +12,19 @@
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
 }
+
+@theme {
+  --color-phone-dark-body: #0C1319;
+
+
+  --color-dark-text-mode: #ffffff;
+  --color-dark-text-less-mode: #e5e7eb;
+
+  --color-dark-contact-body: #314158; 
+  --color-dark-contact-hover: #4a5565; 
+
+  --color-dark-sms-header: #1B2026;
+  --color-dark-sms-sent: #9BAEBC;
+  --color-dark-sms-received: #2D3134;
+  --color-dark-input-body: #232A30;
+}

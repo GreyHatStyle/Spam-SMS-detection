@@ -38,9 +38,9 @@ function DummyContact(
               rounded-2xl
               flex flex-row
               justify-start items-center
-              bg-white
+              bg-white dark:bg-dark-contact-body
               shadow-sm
-              
+              dark:text-dark-text-less-mode
               ${isSelected && isMobileDevice?
                 // mobile device is on hand
                 `gap-4 p-2 my-2`
@@ -48,7 +48,7 @@ function DummyContact(
                 // mobile device is on ground
                 `gap-2 p-1 my-1`
               }
-              ${isSelected? "hover:cursor-pointer hover:bg-gray-200" : " "}
+              ${isSelected? "hover:cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-contact-hover" : " "}
               `}
               >
                   <img src="./phone/default-user.png" alt="" 

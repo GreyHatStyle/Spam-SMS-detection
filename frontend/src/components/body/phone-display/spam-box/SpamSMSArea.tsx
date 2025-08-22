@@ -37,7 +37,7 @@ function SpamSMSArea(
     <div id="spam-sms-area"
         className={`
         fixed
-        bg-[#FCFCFE] 
+        bg-[#FCFCFE] dark:bg-phone-dark-body
         flex flex-col 
         pb-2
         
@@ -59,7 +59,7 @@ function SpamSMSArea(
             // Do the header of contact
             className={`
                 flex flex-row justify-start items-center
-                bg-[#E6EFF6]
+                bg-[#E6EFF6] dark:bg-dark-sms-header
 
                 ${isSelected ? 
                     `py-3 gap-6 md:gap-2 md:py-1`
@@ -75,6 +75,7 @@ function SpamSMSArea(
                 >
                     <svg 
                     className={`
+                        dark:fill-white
                         ${isSelected?
                             `h-[48px] md:h-[15px] xl:h-[22px]`
                             :
