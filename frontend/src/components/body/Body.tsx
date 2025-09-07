@@ -5,8 +5,8 @@ import { useJoyStore } from "../../store/useJoyStore"
 import { useTheme } from "../../hooks/useTheme"
 
 function Body() {
-    const backgroundImgLight = "./wallpaper/wall-light.png"
-    const backgroundImgDark = "./wallpaper/wall-dark.png"
+    const backgroundImgLight = "./wallpaper/wall-light.webp"
+    const backgroundImgDark = "./wallpaper/wall-dark.webp"
 
     const { theme, toggleTheme, setTheme } = useTheme();
     const { selectedPhoneIndex, setSelectedPhoneIndex } = useSelectPhoneDevice();
