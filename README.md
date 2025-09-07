@@ -7,7 +7,7 @@ The website simulates a two-way SMS conversation between two users *Alice* and *
     - *Backend* is deployed separately in **AWS EC2 instance**.
 - Link - https://spam-sms-detection-virid.vercel.app/
 
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/4637a77b-9038-4dcb-a1ed-5581119a04de" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d3098c91-ed42-4512-8956-3b2a5e6e5853" />
 
 
 ## Table of Contents

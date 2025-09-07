@@ -5,7 +5,8 @@ from middleware import RateLimiter
 from pydantic import BaseModel
 from typing import Literal
 from app_enums import MY_RESPONSES
-from utils import predict_spam_ham
+from tasks import predict_spam_ham_task
+from celery.exceptions import TimeoutError
 
 spam_ham_route = APIRouter()
 
@@ -38,12 +39,27 @@ class SpamHamErrorResponse(BaseModel):
 @RateLimiter.rate_limit_anon(max_calls=2, period=1) # Protecting burst requests
 async def is_spam(sms: SMS_message, request: Request):
     try: 
-        ans = predict_spam_ham(sms.text)
+        # ans = predict_spam_ham(sms.text)
+        task_ = predict_spam_ham_task.delay(sms.text)
+        print(f"Task ID: {task_.id}")
+        
+        
+        try:
+            ans = task_.get(timeout=5)
+            
+        except TimeoutError as te:
+            return JSONResponse(
+                content={
+                    "status":MY_RESPONSES.FAILURE.value,
+                    "message": "Server is busy.. please try again later"
+                },
+                status_code=HTTP_STATUS.HTTP_503_SERVICE_UNAVAILABLE
+            )
         
         return JSONResponse(
             content={
-            "status":MY_RESPONSES.SUCCESS.value,
-            "message": ans,
+                "status":MY_RESPONSES.SUCCESS.value,
+                "message": ans,
             },
             status_code=HTTP_STATUS.HTTP_200_OK,
         )
