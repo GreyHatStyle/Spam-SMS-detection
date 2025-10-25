@@ -123,7 +123,7 @@ git clone https://github.com/GreyHatStyle/Spam-SMS-detection.git
     - Visit here to do so, [backend setup](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/backend#readme).
   
 ## Feedback
-If you have any feedback, please reach me it manasbisht1142004@gmail.com.
+If you have any feedback, please reach out to me at manasbisht1142004@gmail.com.
 
 
 ## Author
