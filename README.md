@@ -1,10 +1,10 @@
 # SPAM HAM SMS Detection
-The website simulates a two-way SMS conversation between two users *Alice* and *Bob*, to demonstrate real-time **SPAM** messages detection using Deep learning. Its **Responsive** and can work in minimum 320px screen width.
+The website simulates a two-way SMS conversation between two users *Alice* and *Bob*, to demonstrate real-time **SPAM** message detection using Deep learning. It's ** responsive ** and can work in a minimum 320px screen width.
 
 - Technology Stack - React JS + Typescript and FastAPI.
 - Headless Website - 
     - *Frontend* is deployed in **Vercel**.
-    - *Backend* is deployed separately in **AWS EC2 instance**.
+    - *Backend* is deployed separately in **Akamai Cloud Platform**.
 - Link - https://spam-sms-detection-virid.vercel.app/
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d3098c91-ed42-4512-8956-3b2a5e6e5853" />
@@ -25,19 +25,19 @@ The website simulates a two-way SMS conversation between two users *Alice* and *
     - One for ***Bob***.
 - Then, using both devices, messages can be shared between each other, just like regular SMS chat.
 - In the backend, every outgoing message is first passed through a **spam detection API**, built using **FastAPI**, implemented in the `backend/` repo.
-- The REST API uses a deep learning Bi-directional LSTM model (trained in the `ml/` repo), to classify messages as:
+- The REST API uses a deep learning Bi-directional LSTM model (trained in the `ml/` repo) to classify messages as:
     - 🟢 **Ham**: Delivered to main inbox, with a notification sound.
     - 🔴 **Spam**: Redirected to a separate **Spam box** of device, with no notification sound.
 - This effectively simulates real-time **Spam SMS** filtering between mobile devices.
 
 ## Public API Access
-You can directly use my hosted **Spam Detection API** to classify your own sms or messages also, without running the project locally.
+You can directly use my hosted **Spam Detection API** to classify your own sms or messages, also without running the project locally.
 
-> **Usage Limit:** To conserve limited server resources, only ***50 requests per day*** are allowed per user, hence please use the API responsibly.
+> **Usage Limit:** To conserve limited server resources, only ***50 requests per day*** are allowed per user; hence, please use the API responsibly.
 
 ### Endpoint
 ```bash
-POST https://manasbisht.tech/ml/spam
+POST https://mybackendserver11.online/manas/ml/spam
 ```
 **Request Body (JSON)**:
 ```json
@@ -57,7 +57,7 @@ POST https://manasbisht.tech/ml/spam
 ### Example
 **1. Javascript**:
 ```js
-fetch('https://manasbisht.tech/ml/spam',{
+fetch('https://mybackendserver11.online/manas/ml/spam',{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ import axios from 'axios';
 
 const checkSpam = async (text) => {
   try{
-    const response = await axios.post('https://manasbisht.tech/ml/spam', {
+    const response = await axios.post('https://mybackendserver11.online/manas/ml/spam', {
       text: text,
     });
 
@@ -99,7 +99,7 @@ checkSpam("You’ve won a free prize! Click here to claim.");
 ```
 **3. Curl**
 ```bash
-curl -X POST https://manasbisht.tech/ml/spam \
+curl -X POST https://mybackendserver11.online/manas/ml/spam \
   -H "Content-Type: application/json" \
   -d '{"text": "Congratulations Customer!! you have been debited 2 lakh rupees!!"}'
 ```
@@ -108,7 +108,7 @@ curl -X POST https://manasbisht.tech/ml/spam \
 
 ## Project Structure
 - `frontend/`: ***React + TypeScript** website simulating two mobile devices for SMS communication between them, [click here to know more...](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/frontend#readme).
-- `backend/`: **FastAPI** application, for exposing the prediction model Rest API endpoint, [click here to know more...](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/backend#readme).
+- `backend/`: **FastAPI** application, for exposing the prediction model REST API endpoint, [click here to know more...](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/backend#readme).
 - `ml/`: **Jupyter notebooks** containing data preprocessing and Bi-directional LSTM model *training* and *testing* process, [click here to know more...](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/ml#readme).
 
 ## Setup Locally
@@ -116,11 +116,11 @@ curl -X POST https://manasbisht.tech/ml/spam \
 ```bash
 git clone https://github.com/GreyHatStyle/Spam-SMS-detection.git
 ```
-2. Setup **Frontend**
-    - Visit here to do so, [frontend setup](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/frontend#readme).
+2. Set up **Frontend**
+    - Visit here to do so: [frontend setup](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/frontend#readme).
       
-3. Setup **Backend**
-    - Visit here to do so, [backend setup](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/backend#readme).
+3. Set up **Backend**
+    - Visit here to do so: [backend setup](https://github.com/GreyHatStyle/Spam-SMS-detection/tree/main/backend#readme).
   
 ## Feedback
 If you have any feedback, please reach out to me at manasbisht1142004@gmail.com.
